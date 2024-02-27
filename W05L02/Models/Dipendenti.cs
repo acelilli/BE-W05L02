@@ -8,8 +8,7 @@ namespace W05L02.Models
 {
     public class Dipendenti
     {
-
-        // oggetto FORM che noi andiamo a compilare = non ha bisognodi ID deciso da me
+        public int IdDipendente { get; set; }
         public string Nome { get; set; }
         public string Cognome { get; set; }
         public string Indirizzo { get; set; }
@@ -24,7 +23,8 @@ namespace W05L02.Models
         public string Mansione { get; set; }
 
         public Dipendenti() { }
-        Dipendenti(string nome, string cognome, string indirizzo, string cf, bool coniugato, int nfigli, string mansione)
+        // è qui che non mi serve id perchè generato automaticamente
+        public Dipendenti(string nome, string cognome, string indirizzo, string cf, bool coniugato, int nfigli, string mansione)
         {
             Nome = nome;
             Cognome = cognome;
