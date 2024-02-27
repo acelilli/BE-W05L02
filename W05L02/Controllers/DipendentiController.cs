@@ -39,16 +39,18 @@ namespace W05L02.Controllers
                 cmd.Parameters.AddWithValue("@NFigliACarico", dipendente.NFigliACarico);
                 cmd.Parameters.AddWithValue("@Mansione", dipendente.Mansione);
                 cmd.ExecuteNonQuery();
+
+                ViewBag.Message = "Inserimento riuscito!";
             }
             catch (SqlException ex)
             {
-                ViewBag.Message = ex.Message;
+                ViewBag.Message = "Si è verificato un errore durante l'inserimento: " + ex.Message;
             }
             finally
             {
                 conn.Close();
             }
-            return RedirectToAction("Index");
+            return View("CreateDipendenti");
         }
 
     }
