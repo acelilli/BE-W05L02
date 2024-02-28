@@ -46,7 +46,8 @@ namespace W05L02.Controllers
             }
             catch (Exception ex)
             {
-                   ViewBag.ErrorMessage = "Si è verificato un errore durante l'inserimento: " + ex.Message;
+                System.Diagnostics.Debug.WriteLine("Errore nella connessione alla tabella");
+                ViewBag.ErrorMessage = "Si è verificato un errore durante l'inserimento in lista: " + ex.Message;
             } finally {
                 conn.Close();
             }
@@ -65,8 +66,8 @@ namespace W05L02.Controllers
             {
                 conn.Open();
                 // query per passare tutti i dati nel database tramite i parametri 
-                string query = "INSERT INTO DatiDipendenti (Nome, Cognome, CF, Indirizzo, Coniugato, NFigliACarico, Mansione) " +
-                    "VALUES (@Nome, @Cognome, @CF, @Indirizzo, @Coniugato, @NFigliACarico, @Mansione,)";
+                string query = "INSERT INTO Dipendenti (Nome, Cognome, CF, Indirizzo, Coniugato, NFigliACarico, Mansione) " +
+                    "VALUES ( @Nome, @Cognome, @CF, @Indirizzo, @Coniugato, @NFigliACarico, @Mansione)";
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@Nome", dipendente.Nome);
                 cmd.Parameters.AddWithValue("@Cognome", dipendente.Cognome);
@@ -76,11 +77,10 @@ namespace W05L02.Controllers
                 cmd.Parameters.AddWithValue("@NFigliACarico", dipendente.NFigliACarico);
                 cmd.Parameters.AddWithValue("@Mansione", dipendente.Mansione);
                 cmd.ExecuteNonQuery();
-
-                ViewBag.Message = "Inserimento riuscito!";
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
+                System.Diagnostics.Debug.WriteLine("Errore nella richiesta SQL");
                 ViewBag.Message = "Si è verificato un errore di connessione durante l'inserimento: " + ex.Message;
             }
             finally
